@@ -1010,7 +1010,7 @@ function checkIfIntervalSubset(earlyStartInterval, lateStartInterval) {
 }
 
 function checkIfIntervalOverlap(earlyStartInterval, lateStartInterval) {
-	return lateStartInterval[0] >= earlyStartInterval[0] && lateStartInterval[0] <= earlyStartInterval[1];
+	return lateStartInterval[0] <= earlyStartInterval[1];
 }
 
 function solve(part) {
