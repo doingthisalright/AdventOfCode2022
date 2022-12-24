@@ -120,7 +120,7 @@ function getMinutes(blizzardMap, startPosition, destinationPosition) {
         for (let row = 0; row < blizzardMap.length; row++) {
             for (let col = 0; col < blizzardMap[0].length; col++) {
                 const newPosition = [row, col];
-                if (deDupePositions[row][col] && blizzardMap[row][col].length === 0) {
+                if (deDupePositions[row][col]) {
                     if (destinationReached(newPosition, destinationPosition)) {
                         return {
                             steps,
