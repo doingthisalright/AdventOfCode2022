@@ -306,42 +306,32 @@ const DIRECTIONS = {
     "SW": [1, -1],
 };
 
-function part1() {
-    let grid = gridInput.map(row => row.split(""));
-    let movementConsiderations = getMovementConsiderations();
-    for (let loop = 0; loop < 10; loop++) {
-        grid = createBufferedGrid(grid);
-        let movementGrid = createEmptyMovementGrid(grid, [null, null]);
-        movementGrid = getMovementProposal(grid, movementGrid, movementConsiderations);
-        grid = moveBasedOnProposal(grid, movementGrid);
-        movementConsiderations = rotate(movementConsiderations);
-    }
-
-    console.log(countEmptyGroundTiles(grid));
-}
-
-function part2() {
+function solve(part) {
     let runCount = 0;
 
     let grid = gridInput.map(row => row.split(""));
     let movementConsiderations = getMovementConsiderations();
 
+    let loop = 0;
     while (true) {
         grid = createBufferedGrid(grid);
         let movementGrid = createEmptyMovementGrid(grid, [null, null]);
         movementGrid = getMovementProposal(grid, movementGrid, movementConsiderations);
         runCount++;
-        if (movementGrid == null) {
+        if (part == "part2" && movementGrid == null) {
+            console.log(runCount);
             break;
         }
         grid = moveBasedOnProposal(grid, movementGrid);
         movementConsiderations = rotate(movementConsiderations);
+        if (part == "part1" && runCount == 10) {
+            console.log(countEmptyGroundTiles(grid));
+            break;
+        }
     }
-
-    console.log(runCount);
 }
 
 // 4116
-part1();
+solve("part1");
 // 984
-part2();
+solve("part2");
