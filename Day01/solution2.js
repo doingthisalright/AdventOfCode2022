@@ -2266,33 +2266,21 @@ const elfCalories = [
 	"1123",
 ];
 
-let totalCalories = {};
+// 1,2,,3,4
+const joinedData = elfCalories.join(",");
+// ['1,2' , '3, 4']
+const splitData = joinedData.split(",,");
+// [ [ '1' , '2' ] , [ '3' , '4'] ]
+const finalSplitData = splitData.map(item => item.split(","));
+// [ [ 1 , 2 ] , [ 3 , 4 ] ]
+const finalArray = finalSplitData.map(row => row.map(item => +item));
 
-let maxElf = -1;
-let maxCalorie = 0;
-
-let currentCalorieCount = 0;
-let currentElf = 1;
-
-for (let elfCalorie of elfCalories) {
-	if (elfCalorie === "")	{
-		totalCalories[currentElf] = currentCalorieCount;
-
-		currentCalorieCount = 0;
-		currentElf++;
-		continue;
-	} else {
-		currentCalorieCount += +elfCalorie;
-	}
-}
-totalCalories[currentElf] = currentCalorieCount;
-
-const calories = Object.values(totalCalories)
-calories.sort((a, b) => {
-    return b-a;
+const sumArray = finalArray.map(row => row.reduce((sum, item) => sum + item, 0));
+sumArray.sort((a, b) => {
+	return b-a;
 });
 
 // Part 1 69206
-console.log(calories[0]);
+console.log(sumArray[0]);
 // Part 2 197400
-console.log(calories[0] + calories[1] + calories[2]);
+console.log(sumArray[0] + sumArray[1] + sumArray[2]);
